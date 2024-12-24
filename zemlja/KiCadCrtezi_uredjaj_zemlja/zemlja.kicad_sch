@@ -9,6 +9,7 @@
 		(date "2024-12-22")
 		(company "Poljoprivredna škola Bač")
 		(comment 1 "Izrađeno u sklopu projekta \"Pametna poljoprivreda\"")
+		(comment 2 "Licencirano sa GPL licencom")
 	)
 	(lib_symbols
 		(symbol "Connector:AVR-ISP-6"

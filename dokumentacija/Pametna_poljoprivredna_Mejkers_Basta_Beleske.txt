@@ -1,0 +1,12 @@
+	Razne beleške vezane za projekat "Pametne poljoprivrede" u okviru
+	Mejkers bašte
+	*****************************************************************
+
+	Korisni linkovi			     |
+	===============
+
+	1. Stranica na kojoj je moguce preuzeti funkcionalne Arduino programe za rad
+	   sa "7u1" senzorom.
+		https://www.alselectro.in/product-page/npk-7-in-1-soil-sensor
+
+	2. 

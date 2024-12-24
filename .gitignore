@@ -1,0 +1,4 @@
+# Ignorise backup fajlove koje kreira KiCad u direktorijumu
+# uređaja "zemlja"
+
+/zemlja/KiCadCrtezi_uredjaj_zemlja/zemlja-backups/

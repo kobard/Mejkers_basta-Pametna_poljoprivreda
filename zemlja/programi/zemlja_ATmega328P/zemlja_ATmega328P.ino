@@ -26,9 +26,13 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
   int brojac_dugmeta = 0;
 #endif
 
+// Definicije signala greske
+#define GRESKA_1 2   // Nedovoljno vracenih bajtova
 
-#define btnInputPin 2   // dugme za prolazak kroz razlicite prikaze LCD-a
-#define ledPin 11       // test led za button input
+
+#define btnInputPin 2         // dugme za prolazak kroz razlicite prikaze LCD-a
+#define CrveniLedPin 11       // Crvena led dioda
+#define ZutiLedPin 12         // Zuta led dioda
 
 //SoftwareSerial mySerial(2, 3);  // RX, TX; definise pinove za serijsku vezu sa 7u1 senzorom
 SoftwareSerial mySerial(4, 5);  // RX, TX; definise pinove za serijsku vezu sa 7u1 senzorom
@@ -78,7 +82,8 @@ String podaci;
 
 void setup() {
   pinMode(btnInputPin, INPUT);
-  pinMode(ledPin, OUTPUT);
+  pinMode(CrveniLedPin, OUTPUT);
+  pinMode(ZutiLedPin, OUTPUT);
 
   Serial.begin(9600);
   mySerial.begin(4800);
@@ -96,7 +101,9 @@ void loop() {
   // proverava dali je vreme za novi upit prema senzoru i ako jeste salje upit
   if((millis() - posl_upit) > period_slanja_upita){
     upit_senzoru();
+    digitalWrite(ZutiLedPin, HIGH); // pali zutu diodu na upit senzoru
     delay(1000);
+    digitalWrite(ZutiLedPin, LOW);
     preuzmi_podatke();
     posl_upit = millis();
   }
@@ -339,6 +346,8 @@ void preuzmi_podatke() {
       strK = String(potassium);
       nov_k = true;
     }
+  }else{
+    signalGreske(GRESKA_1);
   }
   return;
 }
@@ -389,4 +398,17 @@ void formiraj_string_podataka(){
   podaci += strK;
   podaci += navodnik_zarez;
   podaci += kraj;
+}
+
+    // Trepni kratkto "GRESKA_n" puta crvenu led diodu
+    // Ovo je rudimentirani sistem pokazivanja greske koji treba razraditi na taj nacini
+    // da razliciti obrazcii treptanja crvene diode pokazuju na razliciti greske koje se
+    // u radu javljaju
+void signalGreske(int brojGreske){
+      for(int i = 0; i<brojGreske; i++){
+         digitalWrite(CrveniLedPin, HIGH);
+         delay(150);
+         digitalWrite(CrveniLedPin, LOW);
+         delay(100);
+    }
 }
